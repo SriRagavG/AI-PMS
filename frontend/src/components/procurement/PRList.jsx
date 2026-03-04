@@ -92,4 +92,6 @@ const PRList = () => {
   );
 };
 
+// Future: Add AI risk icons next to vendors if ai_risk_score high
+
 export default PRList;

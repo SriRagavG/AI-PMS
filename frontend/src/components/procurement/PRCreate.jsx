@@ -1,4 +1,4 @@
-// frontend/src/components/procurement/PRCreate.jsx (Fixed label overlap, made vendor required)
+// src/components/procurement/PRCreate.jsx (Fixed vendor clear + AI button)
 import { useEffect, useState } from "react";
 import { Box, Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material";
 import axios from "../../api/axios";
@@ -12,13 +12,20 @@ const PRCreate = ({ onCreated }) => {  // Add prop for callback
   const [loading, setLoading] = useState(false);
   const [vendors, setVendors] = useState([]);  
   const [vendorId, setVendorId] = useState("");  
+  const [aiSuggestions, setAiSuggestions] = useState([]);  // New: For AI vendors
 
   const total = quantity && price ? (Number(quantity) * Number(price)).toFixed(2) : "0.00";
 
   useEffect(() => {
     axios.get("/inventory/items/").then((res) => setInventory(res.data));
-    axios.get("/vendors/all/").then((res) => setVendors(res.data.results || res.data));  // Changed to /vendors/ if /vendors/all/ was causing issues
+    axios.get("/vendors/all/").then((res) => setVendors(res.data.results || res.data));
   }, []);
+
+  const handleAiSuggest = () => {
+    // Future: Call /procurement/ai-suggest/ or vendor AI endpoint
+    alert("AI vendor suggestions coming soon!");
+    setAiSuggestions([]);  // Placeholder
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +33,11 @@ const PRCreate = ({ onCreated }) => {  // Add prop for callback
     setLoading(true);
     axios.post("/procurement/", { department, suggested_vendor: vendorId ? Number(vendorId) : null, items: [{ item: Number(itemId), quantity: Number(quantity), estimated_price: Number(price) }] })
       .then(() => {
-        setDepartment(""); setItemId(""); setQuantity(""); setPrice("");
+        setDepartment(""); 
+        setItemId(""); 
+        setQuantity(""); 
+        setPrice(""); 
+        setVendorId("");  // Fixed: Clear vendor selection
         if (onCreated) onCreated();  // Call to refresh list
       })
       .catch((err) => {
@@ -43,7 +54,7 @@ const PRCreate = ({ onCreated }) => {  // Add prop for callback
         <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <TextField label="Department" value={department} onChange={(e) => setDepartment(e.target.value)} fullWidth required />
           <FormControl fullWidth>
-            <InputLabel id="item-label" required >Item</InputLabel>
+            <InputLabel id="item-label" required>Item</InputLabel>
             <Select labelId="item-label" value={itemId} onChange={(e) => setItemId(e.target.value)} label="Item" required>
               <MenuItem value="">Select an item</MenuItem>
               {inventory.map((item) => <MenuItem key={item.id} value={item.id}>{item.name}</MenuItem>)}
@@ -64,6 +75,11 @@ const PRCreate = ({ onCreated }) => {  // Add prop for callback
               {vendors.map((vendor) => <MenuItem key={vendor.id} value={vendor.id}>{vendor.name}</MenuItem>)}
             </Select>
           </FormControl>
+          {/* New: AI Vendor Suggestions Button (placeholder) */}
+          <Button variant="outlined" onClick={handleAiSuggest}>Get AI Vendor Suggestions</Button>
+          {aiSuggestions.length > 0 && (
+            <Typography variant="body2">AI Suggestions: {aiSuggestions.join(', ')}</Typography>
+          )}
           <TextField type="number" label="Quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} fullWidth required />
           <TextField type="number" label="Estimated Price (₹)" value={price} onChange={(e) => setPrice(e.target.value)} fullWidth required />
           <Card variant="outlined" sx={{ p: 2, bgcolor: "info.light" }}>

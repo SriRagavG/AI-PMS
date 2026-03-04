@@ -10,15 +10,13 @@ import {
 import axios from "../api/axios";
 import ScoreChip from "../components/common/ScoreChip";
 import DeliveryPerformanceChart from "../components/vendor/DeliveryPerformanceChart";
-import VendorMonthlyDeliveryChart from "../components/charts/VendorMonthlyDeliveryChart"
+import VendorMonthlyDeliveryChart from "../components/charts/VendorMonthlyDeliveryChart";
 import VendorRadarChart from "../components/charts/VendorRadarChart";
 import { buildVendorRadarMetrics } from "../components/utils/vendorRadarMetrics";
-
 
 const VendorDetails = () => {
   const { id } = useParams();
   const [vendor, setVendor] = useState(null);
-
   const [vendors, setVendors] = useState([]);
   const [comparisonVendor, setComparisonVendor] = useState(null);
 
@@ -35,6 +33,7 @@ const VendorDetails = () => {
     const res = await axios.get(`/vendors/${id}/`);
     setVendor(res.data);
   };
+
   useEffect(() => {
     const fetchVendors = async () => {
       try {
@@ -45,8 +44,8 @@ const VendorDetails = () => {
       }
     };
 
-  fetchVendors();
-}, []);
+    fetchVendors();
+  }, []);
 
   if (!vendor) return <Typography>Loading...</Typography>;
 
@@ -65,9 +64,13 @@ const VendorDetails = () => {
               <Typography>Total Orders: {vendor.total_orders}</Typography>
               <Typography>Average Delivery Days: {vendor.avg_delivery_days}</Typography>
               <Typography>Average Rating: {vendor.avg_rating}</Typography>
+              {/* New: AI Risk Score (placeholder for AI integration) */}
+              <Typography sx={{ mt: 1 }}>
+                AI Risk Score: {vendor.ai_risk_score || 0}/100
+              </Typography>
               <ScoreChip score={vendor.reliability_score} />
             </CardContent>
-          </Card>
+          </Card> 
         </Grid>
         <Grid item xs={12} md={4} sx={{width:300}}>
           <DeliveryPerformanceChart vendor={vendor} />

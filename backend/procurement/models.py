@@ -1,3 +1,4 @@
+# backend/procurement/models.py (Added AI suggestion fields)
 from django.db import models
 from django.conf import settings
 from inventory.models import InventoryItem
@@ -27,6 +28,7 @@ class PurchaseRequest(models.Model):
         blank=True,
         related_name='suggested_prs'
     )
+    ai_suggested_vendors = models.JSONField(default=list, blank=True)  # New: AI-ready, list of vendor IDs/scores
     total_estimated_cost = models.DecimalField(
         max_digits=12,
         decimal_places=2,

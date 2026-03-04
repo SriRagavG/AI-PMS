@@ -1,3 +1,4 @@
+# backend/vendors/management/commands/recalculate_vendor_metrics.py (Updated for AI fields)
 from django.core.management.base import BaseCommand
 from vendors.models import Vendor
 

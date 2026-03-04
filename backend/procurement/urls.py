@@ -1,3 +1,4 @@
+# backend/procurement/urls.py (Added AI suggestion endpoint placeholder)
 from django.urls import path
 from .views import (
     PurchaseRequestListCreateView,
@@ -7,7 +8,8 @@ from .views import (
     PurchaseOrderDetailView,
     PurchaseOrderStatusUpdateView,
     DashboardView,
-    PurchaseRequestDeclineView
+    PurchaseRequestDeclineView,
+    PurchaseRequestAISuggestView  # New placeholder view
 )
 
 urlpatterns = [
@@ -19,4 +21,5 @@ urlpatterns = [
     path('po/<int:pk>/status/', PurchaseOrderStatusUpdateView.as_view()),
     path("dashboard/", DashboardView.as_view()),
     path('decline/<int:pk>/', PurchaseRequestDeclineView.as_view()),
+    path('ai-suggest/<int:pk>/', PurchaseRequestAISuggestView.as_view()),  # New: Placeholder for AI vendor suggestion
 ]

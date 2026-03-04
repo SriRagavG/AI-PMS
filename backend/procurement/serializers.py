@@ -1,3 +1,4 @@
+# backend/procurement/serializers.py (Added AI fields)
 from rest_framework import serializers
 from .models import (
     PurchaseRequest,
@@ -41,6 +42,7 @@ class PurchaseRequestSerializer(serializers.ModelSerializer):
             'department',
             'suggested_vendor',
             'suggested_vendor_name',  # New field
+            'ai_suggested_vendors',  # New AI field
             'total_estimated_cost',
             'status',
             'created_at',

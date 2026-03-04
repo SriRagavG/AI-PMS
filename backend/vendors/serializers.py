@@ -1,3 +1,4 @@
+# backend/vendors/serializers.py (Added AI fields)
 from rest_framework import serializers
 from django.db.models import Count, Q
 from django.db.models.functions import TruncMonth
@@ -19,7 +20,7 @@ class VendorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vendor
-        fields = "__all__"
+        fields = ["id", "name", "contact_person", "email", "phone", "address", "created_at", "total_orders", "on_time_deliveries", "avg_delivery_days", "avg_rating", "reliability_score", "monthly_delivery_stats","ai_risk_score", "ai_explanation", "categories"]  # Added AI fields
 
     def get_monthly_delivery_stats(self, obj):
         six_months_ago = date.today().replace(day=1) - relativedelta(months=5)

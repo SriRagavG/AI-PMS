@@ -9,7 +9,7 @@ const ScoreChip = ({ score }) => {
 
   return (
     <Chip
-      label={`Score: ${score}`}
+      label={`Reliability Score: ${score}`}
       color={color}
       variant="filled"
     />

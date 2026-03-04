@@ -1,4 +1,4 @@
-# procurement_system/procurement/views.py (Added try-except to handle errors in list view)
+# backend/procurement/views.py (Added AI suggestion placeholder view)
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -170,3 +170,10 @@ class DashboardView(APIView):
             "delivered_po": delivered_po,
             "total_value": total_value,
         })
+    
+# ... (Existing code)
+class PurchaseRequestAISuggestView(APIView):  # New: Placeholder for AI vendor suggestion
+    permission_classes = [IsAuthenticated]
+    def get(self, request, pk):
+        # Future: Call AI to suggest vendors based on PR items/department
+        return Response({"message": "AI suggestions coming soon", "ai_suggested_vendors": []})

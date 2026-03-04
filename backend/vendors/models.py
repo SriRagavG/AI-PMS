@@ -1,3 +1,4 @@
+# backend/vendors/models.py (Added AI fields)
 from django.db import models
 
 class Vendor(models.Model):
@@ -15,6 +16,11 @@ class Vendor(models.Model):
     avg_rating = models.FloatField(default=0.0)   # 1-5 from reviews
 
     reliability_score = models.FloatField(default=50.0)  # 0-100, calculated
+
+    # New AI-ready fields
+    ai_risk_score = models.FloatField(default=0.0)  # 0-100, AI-calculated risk
+    ai_explanation = models.TextField(blank=True)  # AI-generated text for performance/risk
+    categories = models.ManyToManyField('inventory.InventoryCategory', blank=True)  # For AI suggestions matching
 
     def update_metrics_from_history(self):
         deliveries = self.deliveries.all()

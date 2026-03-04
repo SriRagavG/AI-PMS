@@ -1,3 +1,4 @@
+# backend/vendors/views.py (Added AI scoring placeholder)
 from rest_framework import viewsets, filters
 from rest_framework.pagination import PageNumberPagination
 from .models import Vendor
@@ -5,6 +6,7 @@ from .serializers import VendorSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
 class VendorPagination(PageNumberPagination):
     page_size = 10              # vendors per page
@@ -26,3 +28,8 @@ class VendorViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(vendors, many=True)
         return Response(serializer.data)
 
+class VendorAIScoreView(APIView):  # New: Placeholder for AI scoring
+    permission_classes = [IsAuthenticated]
+    def post(self, request, pk):
+        # Future: Trigger AI/ML scoring task
+        return Response({"message": "AI scoring initiated - results pending"})
