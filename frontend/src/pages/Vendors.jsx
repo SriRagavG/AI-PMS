@@ -40,10 +40,6 @@ const Vendors = () => {
     setPrevious(response.data.previous);
   };
 
-  // const handleScore = async (id) => {
-  //   await calculateScore(id);
-  //   loadVendors();
-  // };
 
   return (
     <>

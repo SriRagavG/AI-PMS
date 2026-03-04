@@ -130,7 +130,7 @@ const VendorDetails = () => {
           </Card>
         </Grid>
         <Grid item xs={12}>
-          <Card sx={{ mt: 2, background: "#f8fafc" }}>
+          <Card sx={{ mt: 2, bgcolor: "background.paper" }}>
             <CardContent>
               <Typography variant="h6" gutterBottom>
                 AI Performance Insight

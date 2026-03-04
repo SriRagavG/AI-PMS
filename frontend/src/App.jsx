@@ -11,21 +11,27 @@ import PublicRoute from "./components/common/PublicRoute";
 import ProcurementDashboard from "./components/procurement/ProcurementDashboard";
 import POList from "./components/procurement/POList";
 import PRPage from "./pages/PRPage";
+import { AuthProvider } from "./context/AuthContext";
+import { ThemeProviderWrapper } from "./context/ThemeContext";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
-      <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
+    <ThemeProviderWrapper>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<PublicRoute><Landing /></PublicRoute>} />
+          <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />
 
-      <Route path="/dashboard" element={<ProtectedRoute><Layout><Dashboard /></Layout></ProtectedRoute>} />
-      <Route path="/vendors" element={<ProtectedRoute><Layout><Vendors /></Layout></ProtectedRoute>} />
-      <Route path="/vendors/:id" element={<ProtectedRoute><Layout><VendorDetails /></Layout></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><Layout><Dashboard /></Layout></ProtectedRoute>} />
+          <Route path="/vendors" element={<ProtectedRoute><Layout><Vendors /></Layout></ProtectedRoute>} />
+          <Route path="/vendors/:id" element={<ProtectedRoute><Layout><VendorDetails /></Layout></ProtectedRoute>} />
 
-      <Route path="/procurement/dashboard" element={<ProtectedRoute><Layout><ProcurementDashboard /></Layout></ProtectedRoute>} />
-      <Route path="/procurement/pr" element={<ProtectedRoute><Layout><PRPage /></Layout></ProtectedRoute>} />
-      <Route path="/procurement/po" element={<ProtectedRoute><Layout><POList /></Layout></ProtectedRoute>} />
-    </Routes>
+          <Route path="/procurement/dashboard" element={<ProtectedRoute><Layout><ProcurementDashboard /></Layout></ProtectedRoute>} />
+          <Route path="/procurement/pr" element={<ProtectedRoute><Layout><PRPage /></Layout></ProtectedRoute>} />
+          <Route path="/procurement/po" element={<ProtectedRoute><Layout><POList /></Layout></ProtectedRoute>} />
+        </Routes>
+      </AuthProvider>
+    </ThemeProviderWrapper>
   );
 }
 
